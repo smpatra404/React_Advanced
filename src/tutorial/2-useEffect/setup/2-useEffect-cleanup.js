@@ -4,7 +4,18 @@ import React, { useState, useEffect } from 'react';
 // second argument
 
 const UseEffectCleanup = () => {
-  return <h2>useEffect cleanup</h2>;
+  const [size, setSize] = useState(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', () => setSize(window.innerWidth))
+    // cleanup funtion to remove unnecesarry eventlistners
+    return () => {
+      window.removeEventListener('resize', () => setSize(window.innerWidth));
+    }
+  }, [])
+  return <>
+    <h1>Window Size :_</h1>
+    <h1>{size}</h1>
+  </>;
 };
 
 export default UseEffectCleanup;
